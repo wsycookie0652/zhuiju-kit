@@ -1,0 +1,33 @@
+# GitHub Actions 模板 —— 放到你仓库的 .github/workflows/check-availability.yml
+# 每天北京时间 09:00 跑一次（01:00 UTC），也支持手动触发。
+# 前提: 仓库 Settings → Actions → General → Workflow permissions 选 "Read and write permissions"
+name: Check availability
+
+on:
+  schedule:
+    - cron: "0 1 * * *"    # 每天 01:00 UTC = 北京 09:00
+  workflow_dispatch: {}     # 允许手动触发
+
+permissions:
+  contents: write
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Run availability check
+        run: python check_availability.py
+
+      - name: Commit report
+        run: |
+          git config user.name  "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add reports/
+          git diff --cached --quiet || (git commit -m "chore: update daily availability" && git push)

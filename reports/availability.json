@@ -1,0 +1,119 @@
+{
+  "version": 1,
+  "generated_at": "2026-11-15T08:34:56.729Z",
+  "summary": {
+    "reachable": 8,
+    "restricted": 0,
+    "unreachable": 1
+  },
+  "results": [
+    {
+      "url": "https://pan.vma.cc/down.php/f83b92a24d61858666f13c5db938a292.txt",
+      "name": "VMA",
+      "category": "iptv",
+      "status": "unreachable",
+      "http_status": null,
+      "final_url": "https://pan.vma.cc/down.php/f83b92a24d61858666f13c5db938a292.txt",
+      "response_ms": null,
+      "attempts": 2,
+      "checked_at": "2026-11-15T08:34:56.727Z",
+      "error": "URLError: <urlopen error _ssl.c:1015: The handshake operation timed out>"
+    },
+    {
+      "url": "http://www.饭太硬.cc/tv",
+      "name": "饭太硬直播源",
+      "category": "iptv",
+      "status": "reachable",
+      "http_status": 200,
+      "final_url": "http://www.xn--sss604efuw.cc/",
+      "response_ms": 1390,
+      "attempts": 1,
+      "checked_at": "2026-11-15T08:34:30.442Z",
+      "error": null
+    },
+    {
+      "url": "https://ys.cxkjg.cn/api/provide/tvbox",
+      "name": "创享影视接口",
+      "category": "tvbox",
+      "status": "reachable",
+      "http_status": 200,
+      "final_url": "https://ys.cxkjg.cn/api/provide/tvbox",
+      "response_ms": 710,
+      "attempts": 1,
+      "checked_at": "2026-11-15T08:34:29.753Z",
+      "error": null
+    },
+    {
+      "url": "http://itv666.cc/aowu/config.webp",
+      "name": "嗷呜",
+      "category": "tvbox",
+      "status": "reachable",
+      "http_status": 200,
+      "final_url": "http://xn--nsr30bl8nb2kyt7a8vs.top/",
+      "response_ms": 9419,
+      "attempts": 1,
+      "checked_at": "2026-11-15T08:34:38.464Z",
+      "error": null
+    },
+    {
+      "url": "http://xhztv.top/4k.json",
+      "name": "小盒子4K",
+      "category": "tvbox",
+      "status": "reachable",
+      "http_status": 200,
+      "final_url": "http://xhztv.top/4k.json",
+      "response_ms": 744,
+      "attempts": 1,
+      "checked_at": "2026-11-15T08:34:29.786Z",
+      "error": null
+    },
+    {
+      "url": "http://xhztv.top/dc",
+      "name": "小盒子多仓",
+      "category": "tvbox",
+      "status": "reachable",
+      "http_status": 200,
+      "final_url": "http://xhztv.top/dc/",
+      "response_ms": 2328,
+      "attempts": 1,
+      "checked_at": "2026-11-15T08:34:31.371Z",
+      "error": null
+    },
+    {
+      "url": "http://xmbjm.fh4u.org/dc.txt",
+      "name": "拾光多仓",
+      "category": "tvbox",
+      "status": "reachable",
+      "http_status": 200,
+      "final_url": "http://xmbjm.fh4u.org/dc.txt",
+      "response_ms": 1635,
+      "attempts": 1,
+      "checked_at": "2026-11-15T08:34:30.678Z",
+      "error": null
+    },
+    {
+      "url": "http://ztha.top/TVBox/GYCK.json",
+      "name": "挺好分享多仓",
+      "category": "tvbox",
+      "status": "reachable",
+      "http_status": 200,
+      "final_url": "https://ztha.top/TVBox/GYCK.json",
+      "response_ms": 889,
+      "attempts": 1,
+      "checked_at": "2026-11-15T08:34:29.932Z",
+      "error": null
+    },
+    {
+      "url": "https://raw.liucn.cc/box/m.json",
+      "name": "老刘备",
+      "category": "tvbox",
+      "status": "reachable",
+      "http_status": 200,
+      "final_url": "https://raw.liucn.cc/box/m.json",
+      "response_ms": 13123,
+      "attempts": 1,
+      "checked_at": "2026-11-15T08:34:42.168Z",
+      "error": null
+    }
+  ]
+}

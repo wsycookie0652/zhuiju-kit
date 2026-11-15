@@ -1,0 +1,10 @@
+# 生成的看板（本地调试产物，不入库）
+dashboard.html
+dashboard.html.tmp
+
+__pycache__/
+*.pyc
+
+# 系统垃圾
+.DS_Store
+Thumbs.db

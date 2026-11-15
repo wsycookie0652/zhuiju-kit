@@ -1,0 +1,19 @@
+# 我的追剧源清单 —— 每行一个源，格式: URL | 名称 | 分类(可选)
+# 以 # 开头的行为注释。改完直接跑 python check_availability.py 或让 Actions 每天跑。
+
+# ---- TVBox / 影视仓配置 ----
+http://xhztv.top/4k.json                       | 小盒子4K      | tvbox
+https://ys.cxkjg.cn/api/provide/tvbox          | 创享影视接口  | tvbox
+http://xhztv.top/dc                            | 小盒子多仓    | tvbox
+http://xmbjm.fh4u.org/dc.txt                   | 拾光多仓      | tvbox
+http://ztha.top/TVBox/GYCK.json                | 挺好分享多仓  | tvbox
+https://raw.liucn.cc/box/m.json                | 老刘备        | tvbox
+http://itv666.cc/aowu/config.webp              | 嗷呜          | tvbox
+
+# ---- IPTV 直播源 ----
+https://pan.vma.cc/down.php/f83b92a24d61858666f13c5db938a292.txt | VMA | iptv
+http://www.饭太硬.cc/tv                        | 饭太硬直播源  | iptv
+
+# ---- 在线影视站（按需增删）----
+# https://www.kankanya.me/   | 看看鸭   | site
+# https://tv.lxyy.club/      | 洛雪TV   | site
