@@ -9,6 +9,7 @@ import time
 import os
 import socket
 import urllib.request
+from collections import Counter
 from datetime import datetime, timezone, timedelta
 
 # 容器内 DNS 可能只返回 IPv6（Docker 无 IPv6 出口时会卡死），强制优先 IPv4
@@ -24,19 +25,27 @@ def _gai_v4(*a, **k):
 socket.getaddrinfo = _gai_v4
 
 RAW = "https://raw.githubusercontent.com/laoma528/awesome-zhuiju-free/main"
+# raw.githubusercontent 在部分网络下极不稳定（连接被重置），按顺序回退到镜像
+MIRRORS = [
+    (RAW, 8),
+    ("https://cdn.jsdelivr.net/gh/laoma528/awesome-zhuiju-free@main", 25),
+    ("https://ghfast.top/https://raw.githubusercontent.com/laoma528/awesome-zhuiju-free/main", 25),
+]
 TZ = timezone(timedelta(hours=8))
 
-def fetch(path, retries=3):
+def fetch(path):
     last = None
-    for i in range(retries):
-        try:
-            req = urllib.request.Request(RAW + path, headers={"User-Agent": "zhuiju-dashboard/1.0"})
-            with urllib.request.urlopen(req, timeout=45) as r:
-                return json.loads(r.read().decode())
-        except Exception as e:
-            last = e
-            print(f"    ! 第 {i + 1} 次拉取失败: {type(e).__name__}: {str(e)[:60]}")
-            time.sleep(3)
+    for base, tmo in MIRRORS:
+        for i in range(2):
+            try:
+                req = urllib.request.Request(base + path, headers={"User-Agent": "zhuiju-dashboard/1.0"})
+                with urllib.request.urlopen(req, timeout=tmo) as r:
+                    return json.loads(r.read().decode())
+            except Exception as e:
+                last = e
+                print(f"    ! {base.split('/')[2]} 第 {i + 1} 次失败: {type(e).__name__}: {str(e)[:60]}")
+                time.sleep(1.5)
+        print(f"    → 换下一个镜像")
     raise last
 
 print("[1/3] 拉取 resources.json ...")
@@ -82,16 +91,36 @@ for r in res["resources"]:
         "ms": a.get("response_ms"),
     })
 
+# 自己维护的源：check_availability.py 的产出（没有就留空，看板不显示该区块）
+mine, mine_at = [], ""
+mine_path = os.environ.get("MINE_REPORT") or os.path.join(
+    os.path.dirname(os.path.abspath(__file__)), "reports", "availability.json")
+try:
+    with open(mine_path, encoding="utf-8") as f:
+        _m = json.load(f)
+    mine_at = (_m.get("generated_at") or "")[:16].replace("T", " ")
+    for r in _m.get("results", []):
+        mine.append({"name": r.get("name"), "url": r.get("url"), "cat": r.get("category") or "",
+                     "st": r.get("status"), "http": r.get("http_status"),
+                     "ms": r.get("response_ms"), "err": (r.get("error") or "")[:70]})
+    _c = Counter(r["st"] for r in mine)
+    print(f"       我的源 {len(mine)} 个：🟢{_c.get('reachable',0)} 🟡{_c.get('restricted',0)} 🔴{_c.get('unreachable',0)}")
+except FileNotFoundError:
+    print("       未找到本地探活报告，跳过「我的源」区块")
+except Exception as e:
+    print(f"       ! 读取本地探活报告失败: {type(e).__name__}: {e}")
+
 data = {
     "generated": datetime.now(TZ).strftime("%Y-%m-%d %H:%M"),
     "srcUpdated": res.get("updated_at", ""),
     "avGenerated": (av.get("generated_at") or "")[:16].replace("T", " "),
     "cats": [{"k": k, "n": n} for k, n in CATS],
     "items": items,
+    "mine": mine,
+    "mineAt": mine_at,
 }
 blob = json.dumps(data, ensure_ascii=False, separators=(",", ":"))
 n_total = len(items)
-from collections import Counter
 cnt = Counter(i["av"] for i in items)
 n_rec = sum(1 for i in items if i["ver"] == "recommended")
 print(f"[3/3] 生成 HTML ... 共 {n_total} 条, 🟢{cnt.get('reachable',0)} 🟡{cnt.get('restricted',0)} 🔴{cnt.get('unreachable',0)}, 推荐 {n_rec}")
@@ -142,6 +171,15 @@ button:hover{border-color:var(--accent)}
 .note{color:var(--fg2);font-size:11.5px;border-left:2px solid var(--line);padding-left:8px}
 footer{margin-top:28px;color:var(--fg2);font-size:11.5px;line-height:1.8;border-top:1px solid var(--line);padding-top:14px}
 .empty{color:var(--fg2);text-align:center;padding:40px}
+.mine{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:14px;margin:16px 0}
+.mine-h{display:flex;justify-content:space-between;align-items:baseline;gap:8px;flex-wrap:wrap;
+font-size:13px;font-weight:600;margin-bottom:10px}
+.mine-h em{color:var(--fg2);font-style:normal;font-weight:400;font-size:11.5px}
+.mine-list{display:flex;gap:8px;flex-wrap:wrap}
+.msrc{display:flex;align-items:center;gap:6px;background:var(--panel2);border:1px solid var(--line);
+border-radius:8px;padding:5px 10px;font-size:12px;cursor:default}
+.msrc em{color:var(--fg2);font-style:normal;font-size:11px}
+.msrc.bad{border-color:#7f2d2d;background:#241a1a}
 </style></head><body><div class="wrap">
 <h1>我的追剧源看板</h1>
 <div class="sub">数据源：laoma528/awesome-zhuiju-free（CC BY 4.0）· 资源库更新 @@SRC@@ · 探活时间 @@AVG@@ · 本页生成于 @@GEN@@</div>
@@ -152,6 +190,7 @@ footer{margin-top:28px;color:var(--fg2);font-size:11.5px;line-height:1.8;border-
   <div class="stat"><b style="color:var(--red)">@@RD@@</b>不可达</div>
   <div class="stat"><b style="color:var(--accent)">@@RC@@</b>官方推荐</div>
 </div>
+<div id="mine"></div>
 <div class="controls">
   <input type="text" id="q" placeholder="搜索名称 / 简介 / 标签 / 域名 …">
   <select id="ver">
@@ -233,10 +272,27 @@ function render(){
 }
 function copyUrl(u,btn){navigator.clipboard.writeText(u).then(()=>{btn.textContent="已复制 ✓";
 setTimeout(()=>btn.textContent="复制地址",1200)})}
+function esc(s){return String(s==null?"":s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]))}
+function renderMine(){
+ const el=document.getElementById("mine");
+ if(!D.mine||!D.mine.length){el.style.display="none";return}
+ const c={reachable:0,restricted:0,unreachable:0};
+ D.mine.forEach(m=>{if(c[m.st]!==undefined)c[m.st]++});
+ const col={reachable:"#22c55e",restricted:"#eab308",unreachable:"#ef4444"};
+ let h='<div class="mine-h"><span>我的源 · NAS 自测</span><em>共 '+D.mine.length+' 个　🟢'+c.reachable+
+   '　🟡'+c.restricted+'　🔴'+c.unreachable+'　· 探活于 '+(D.mineAt||"—")+'</em></div><div class="mine-list">';
+ D.mine.forEach(m=>{
+  const info=m.http?(m.http+(m.ms?" · "+m.ms+"ms":"")):(m.err||"无响应");
+  h+='<div class="msrc'+(m.st==="unreachable"?" bad":"")+'" title="'+esc(m.url)+'&#10;'+esc(m.err||"")+
+     '"><span class="dot" style="background:'+(col[m.st]||"#64748b")+'"></span><span>'+esc(m.name)+
+     '</span><em>'+esc(info)+'</em></div>';
+ });
+ el.innerHTML=h+"</div>";
+}
 document.getElementById("q").oninput=e=>{q=e.target.value.trim().toLowerCase();render()};
 document.getElementById("ver").onchange=e=>{ver=e.target.value;render()};
 document.getElementById("sort").onchange=e=>{sort=e.target.value;render()};
-renderChips();render();
+renderChips();renderMine();render();
 </script></body></html>"""
 
 html = (TEMPLATE

@@ -1,23 +1,23 @@
 {
   "version": 1,
-  "generated_at": "2026-11-15T08:44:08.429Z",
+  "generated_at": "2026-11-15T08:34:56.729Z",
   "summary": {
-    "reachable": 9,
+    "reachable": 8,
     "restricted": 0,
-    "unreachable": 0
+    "unreachable": 1
   },
   "results": [
     {
       "url": "https://pan.vma.cc/down.php/f83b92a24d61858666f13c5db938a292.txt",
       "name": "VMA",
       "category": "iptv",
-      "status": "reachable",
-      "http_status": 200,
-      "final_url": "https://pan.ezv.cc/down.php/f83b92a24d61858666f13c5db938a292.txt",
-      "response_ms": 1996,
-      "attempts": 1,
-      "checked_at": "2026-11-15T08:44:06.174Z",
-      "error": null
+      "status": "unreachable",
+      "http_status": null,
+      "final_url": "https://pan.vma.cc/down.php/f83b92a24d61858666f13c5db938a292.txt",
+      "response_ms": null,
+      "attempts": 2,
+      "checked_at": "2026-11-15T08:34:56.727Z",
+      "error": "URLError: <urlopen error _ssl.c:1015: The handshake operation timed out>"
     },
     {
       "url": "http://www.饭太硬.cc/tv",
@@ -26,9 +26,9 @@
       "status": "reachable",
       "http_status": 200,
       "final_url": "http://www.xn--sss604efuw.cc/",
-      "response_ms": 961,
+      "response_ms": 1390,
       "attempts": 1,
-      "checked_at": "2026-11-15T08:44:05.278Z",
+      "checked_at": "2026-11-15T08:34:30.442Z",
       "error": null
     },
     {
@@ -38,9 +38,9 @@
       "status": "reachable",
       "http_status": 200,
       "final_url": "https://ys.cxkjg.cn/api/provide/tvbox",
-      "response_ms": 1067,
+      "response_ms": 710,
       "attempts": 1,
-      "checked_at": "2026-11-15T08:44:05.240Z",
+      "checked_at": "2026-11-15T08:34:29.753Z",
       "error": null
     },
     {
@@ -50,9 +50,9 @@
       "status": "reachable",
       "http_status": 200,
       "final_url": "http://xn--nsr30bl8nb2kyt7a8vs.top/",
-      "response_ms": 4250,
+      "response_ms": 9419,
       "attempts": 1,
-      "checked_at": "2026-11-15T08:44:08.427Z",
+      "checked_at": "2026-11-15T08:34:38.464Z",
       "error": null
     },
     {
@@ -62,9 +62,9 @@
       "status": "reachable",
       "http_status": 200,
       "final_url": "http://xhztv.top/4k.json",
-      "response_ms": 190,
+      "response_ms": 744,
       "attempts": 1,
-      "checked_at": "2026-11-15T08:44:04.362Z",
+      "checked_at": "2026-11-15T08:34:29.786Z",
       "error": null
     },
     {
@@ -74,9 +74,9 @@
       "status": "reachable",
       "http_status": 200,
       "final_url": "http://xhztv.top/dc/",
-      "response_ms": 374,
+      "response_ms": 2328,
       "attempts": 1,
-      "checked_at": "2026-11-15T08:44:04.547Z",
+      "checked_at": "2026-11-15T08:34:31.371Z",
       "error": null
     },
     {
@@ -86,9 +86,9 @@
       "status": "reachable",
       "http_status": 200,
       "final_url": "http://xmbjm.fh4u.org/dc.txt",
-      "response_ms": 306,
+      "response_ms": 1635,
       "attempts": 1,
-      "checked_at": "2026-11-15T08:44:04.480Z",
+      "checked_at": "2026-11-15T08:34:30.678Z",
       "error": null
     },
     {
@@ -98,9 +98,9 @@
       "status": "reachable",
       "http_status": 200,
       "final_url": "https://ztha.top/TVBox/GYCK.json",
-      "response_ms": 1534,
+      "response_ms": 889,
       "attempts": 1,
-      "checked_at": "2026-11-15T08:44:05.708Z",
+      "checked_at": "2026-11-15T08:34:29.932Z",
       "error": null
     },
     {
@@ -110,9 +110,9 @@
       "status": "reachable",
       "http_status": 200,
       "final_url": "https://raw.liucn.cc/box/m.json",
-      "response_ms": 298,
+      "response_ms": 13123,
       "attempts": 1,
-      "checked_at": "2026-11-15T08:44:04.473Z",
+      "checked_at": "2026-11-15T08:34:42.168Z",
       "error": null
     }
   ]
