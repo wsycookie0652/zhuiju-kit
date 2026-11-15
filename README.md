@@ -6,15 +6,16 @@
 
 > ⚠️ 探活只证明**服务器还活着**，不证明**能出片**。配置里采集接口是否可用，得导入壳里点两集才知道。
 
+**为什么要两个出口测**：单个网络位置的探活结果会骗人。同一个 VMA 直播源，在你家宽带是 🔴（TLS 握手被中途重置），在 GitHub Actions 的海外节点是 🟢。只有两边都红，才基本能判定「源真的挂了」。所以看板会把**本机/NAS 视角**和**Actions 视角**并排显示。
+
 ---
 
 ## 目录结构
 
 ```
-.
-├── sources.txt                        # 你的源清单（URL | 名称 | 分类）
+├── sources.txt                        # 你的源清单（26 个：TVBox 配置 / IPTV / 字幕 / 网盘 / 磁力）
 ├── check_availability.py              # 并发探活 → reports/availability.json
-├── build_dashboard.py                 # 拉上游数据 → 单文件 HTML 看板
+├── build_dashboard.py                 # 拉上游数据 + 双视角对照 → 单文件 HTML 看板
 ├── reports/availability.json          # 探活报告（Actions 每天自动更新）
 └── .github/workflows/
     └── check-availability.yml         # 每天 09:00 (北京) 自动跑
@@ -52,7 +53,7 @@ OUT=/tmp/dashboard.html python build_dashboard.py
 ```json
 {
   "generated_at": "2026-11-15T01:00:12.345Z",
-  "summary": { "reachable": 9, "restricted": 0, "unreachable": 0 },
+  "summary": { "reachable": 24, "restricted": 0, "unreachable": 2 },
   "results": [
     { "name": "小盒子4K", "url": "...", "status": "reachable",
       "http_status": 200, "response_ms": 340, "attempts": 1,
@@ -67,12 +68,26 @@ OUT=/tmp/dashboard.html python build_dashboard.py
 
 `build_dashboard.py` 会拉上游的 `resources/resources.json` + `reports/availability.json`，生成一个零依赖的单文件 HTML（内嵌数据，双击就能打开）：
 
-- 搜索（名称 / 简介 / 标签 / 域名）+ 9 个分类筛选
+- 128 条上游资源：搜索（名称 / 简介 / 标签 / 域名）+ 9 个分类筛选
 - 状态徽章（🟢🟡🔴）+ HTTP 码 + 响应毫秒
 - 四维风险标记（版权 / 安全 / 隐私 / 付费）
 - TVBox 配置地址一键复制
+- **顶部「我的源 · 双视角对照」区块**：你自己的 26 个源，每个同时显示本机/NAS 与 Actions 两次探活结果
 
 `OUT` 环境变量控制输出路径，默认 `./dashboard.html`。写入是原子的（先写 `.tmp` 再 `os.replace`），所以可以放心让定时任务覆盖正在被访问的文件。
+
+拉数据有两级容错：`raw.githubusercontent.com`（8s 超时）失败就换 `cdn.jsdelivr.net`，再失败换 `ghfast.top`——国内网络下 raw 被重置是常态。
+
+### 双视角怎么读
+
+| 判定 | 含义 | 该怎么办 |
+|---|---|---|
+| 🟢 双绿 | 两个出口都通 | 放心用 |
+| 🟡 仅 Actions 绿 | 你的网络连不上，源本身活着 | 本机 TLS 被干扰 / 需要代理；源别删 |
+| 🔵 仅本机绿 | Actions 节点连不上 | 多半是 Github 节点被目标站风控，忽略即可 |
+| 🔴 双向失败 | 两个出口都红 | 大概率真挂了，可以换源 |
+
+Actions 那份报告通过 jsDelivr 读取，可能比实际运行时间晚几十分钟到几小时（CDN 缓存），页面顶部会显示它的 `generated_at`，自己判断新鲜度。想关掉对照：`GH_REPORT="" python build_dashboard.py`；想指定别的报告：`GH_REPORT=https://... python build_dashboard.py`。
 
 ## 部署到自己的 NAS（可选）
 
@@ -85,16 +100,17 @@ services:
     volumes: ["./site:/site:ro"]
     restart: unless-stopped
 
-  kit-builder:                  # 每 6 小时重建看板
+  kit-builder:                  # 每 6 小时：先探活，再重建看板
     image: python:3.12-alpine
     entrypoint: ["/bin/sh", "-c"]
-    command: ["while true; do python -u /app/build_dashboard.py; sleep 21600; done"]
+    command:
+      - "while true; do python -u /work/check_availability.py; python -u /work/build_dashboard.py; sleep 21600; done"
     environment:
       - OUT=/site/index.html
       - PYTHONUNBUFFERED=1
     volumes:
       - "./site:/site"
-      - "./build_dashboard.py:/app/build_dashboard.py:ro"
+      - "./:/work:ro"          # 注意：别挂到 /app，会覆盖镜像自带的 python 环境
     restart: unless-stopped
 ```
 

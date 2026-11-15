@@ -1,19 +1,48 @@
 # 我的追剧源清单 —— 每行一个源，格式: URL | 名称 | 分类(可选)
-# 以 # 开头的行为注释。改完直接跑 python check_availability.py 或让 Actions 每天跑。
+# 以 # 开头的行为注释。改完直接跑 python check_availability.py，或让 Actions 每天自动跑。
+# 分类：tvbox=空壳配置 / iptv=直播源 / subtitle=字幕 / cloud=网盘搜索 / magnet=磁力BT / site=在线站
+# 说明：URL 均来自上游 awesome-zhuiju-free 的收录，并逐个实测过；下架/失联的放在文件末尾注释区留档。
 
-# ---- TVBox / 影视仓配置 ----
+# ---------- TVBox / 影视仓配置（多仓为主，可整条导入） ----------
 http://xhztv.top/4k.json                       | 小盒子4K      | tvbox
-https://ys.cxkjg.cn/api/provide/tvbox          | 创享影视接口  | tvbox
 http://xhztv.top/dc                            | 小盒子多仓    | tvbox
+http://xhztv.top/xhz                           | 小盒子单仓    | tvbox
+https://ys.cxkjg.cn/api/provide/tvbox          | 创享影视接口  | tvbox
 http://xmbjm.fh4u.org/dc.txt                   | 拾光多仓      | tvbox
 http://ztha.top/TVBox/GYCK.json                | 挺好分享多仓  | tvbox
 https://raw.liucn.cc/box/m.json                | 老刘备        | tvbox
 http://itv666.cc/aowu/config.webp              | 嗷呜          | tvbox
+https://szyyds.cn/tv/x.json                    | 小马          | tvbox
+https://6800.kstore.vip/fish.json              | 无名          | tvbox
+http://www.饭太硬.net/tv                       | 饭太硬配置    | tvbox
+http://肥猫.net/                               | 肥猫配置      | tvbox
+http://www.y456y.com                           | 摸鱼儿        | tvbox
+http://new.王二小放牛娃.top                    | 王二小        | tvbox
 
-# ---- IPTV 直播源 ----
+# ---------- IPTV 直播源（m3u / txt） ----------
 https://pan.vma.cc/down.php/f83b92a24d61858666f13c5db938a292.txt | VMA | iptv
 http://www.饭太硬.cc/tv                        | 饭太硬直播源  | iptv
+https://iptv-org.github.io/iptv/countries/cn.m3u | iptv-org 中国 | iptv
 
-# ---- 在线影视站（按需增删）----
+# ---------- 字幕 ----------
+https://assrt.net                              | 射手网(伪)    | subtitle
+https://subhd.tv                               | SubHD         | subtitle
+
+# ---------- 网盘搜索 ----------
+https://pansou.de                              | PanSou        | cloud
+https://kkso.net                               | KK网盘搜      | cloud
+https://gugeso.com/                            | 谷哥搜        | cloud
+
+# ---------- 磁力 / BT ----------
+https://www.cilixiong.org                      | 磁力熊        | magnet
+https://ciligou.net                            | 磁力狗        | magnet
+https://www.mjf2020.com                        | 美剧粉        | magnet
+
+# ---------- 在线影视站（按需启用） ----------
 # https://www.kankanya.me/   | 看看鸭   | site
 # https://tv.lxyy.club/      | 洛雪TV   | site
+
+# ---------- 已实测失联 / 主动排除（留档，别轻易恢复） ----------
+# http://肥猫.net/tv                 | 肥猫直播   | iptv   # 2026-11-15 实测 HTTP 404
+# https://acg.rip/                   | ACG.RIP    | magnet # 2026-11-15 实测连接超时（本地网络疑点，待复核）
+# http://47.96.82.41:5188/rose/18/xgg.json | 上游「伦理接口」 | tvbox # 18+ 内容，不收录

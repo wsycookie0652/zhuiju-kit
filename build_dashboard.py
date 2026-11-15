@@ -91,10 +91,18 @@ for r in res["resources"]:
         "ms": a.get("response_ms"),
     })
 
-# 自己维护的源：check_availability.py 的产出（没有就留空，看板不显示该区块）
+# ── 我的源：本机/NAS 探活（本地视角） + GitHub Actions 报告（云端视角）对照 ──
+# 两个出口测同一批源，才能区分「源真的挂了」和「只是我这边连不上」
+HERE = os.path.dirname(os.path.abspath(__file__))
 mine, mine_at = [], ""
-mine_path = os.environ.get("MINE_REPORT") or os.path.join(
-    os.path.dirname(os.path.abspath(__file__)), "reports", "availability.json")
+gh_map, gh_at = {}, ""
+
+
+def _key(u):
+    return (u or "").strip().rstrip("/").lower()
+
+
+mine_path = os.environ.get("MINE_REPORT") or os.path.join(HERE, "reports", "availability.json")
 try:
     with open(mine_path, encoding="utf-8") as f:
         _m = json.load(f)
@@ -102,13 +110,54 @@ try:
     for r in _m.get("results", []):
         mine.append({"name": r.get("name"), "url": r.get("url"), "cat": r.get("category") or "",
                      "st": r.get("status"), "http": r.get("http_status"),
-                     "ms": r.get("response_ms"), "err": (r.get("error") or "")[:70]})
+                     "ms": r.get("response_ms"), "err": (r.get("error") or "")[:70],
+                     "gst": None, "ghttp": None, "gms": None})
     _c = Counter(r["st"] for r in mine)
-    print(f"       我的源 {len(mine)} 个：🟢{_c.get('reachable',0)} 🟡{_c.get('restricted',0)} 🔴{_c.get('unreachable',0)}")
+    print(f"       我的源 {len(mine)} 个（本地视角）：🟢{_c.get('reachable',0)} 🟡{_c.get('restricted',0)} 🔴{_c.get('unreachable',0)}")
 except FileNotFoundError:
     print("       未找到本地探活报告，跳过「我的源」区块")
 except Exception as e:
     print(f"       ! 读取本地探活报告失败: {type(e).__name__}: {e}")
+
+# Actions 报告：jsDelivr 优先（raw 在部分网络下会被重置）
+GH_REPORT_URLS = [
+    ("https://cdn.jsdelivr.net/gh/wsycookie0652/zhuiju-kit@main/reports/availability.json", 20),
+    ("https://raw.githubusercontent.com/wsycookie0652/zhuiju-kit/main/reports/availability.json", 10),
+]
+
+
+def fetch_gh_report():
+    """GH_REPORT 环境变量：填 URL 可指定；填空串则关闭对照"""
+    if os.environ.get("GH_REPORT") == "":
+        return None
+    urls = [(os.environ["GH_REPORT"], 20)] if os.environ.get("GH_REPORT") else GH_REPORT_URLS
+    for u, tmo in urls:
+        try:
+            req = urllib.request.Request(u, headers={"User-Agent": "zhuiju-dashboard/1.1"})
+            with urllib.request.urlopen(req, timeout=tmo) as r:
+                return json.loads(r.read().decode())
+        except Exception as e:
+            print(f"    ! Actions 报告拉取失败 {u.split('/')[2]}: {type(e).__name__}")
+    return None
+
+
+if mine:
+    _g = fetch_gh_report()
+    if _g:
+        gh_at = (_g.get("generated_at") or "")[:16].replace("T", " ")
+        _rows = _g.get("results", [])
+        for r in _rows:
+            gh_map[_key(r.get("url"))] = r
+        _by_name = {r.get("name"): r for r in _rows}
+        _hit = 0
+        for m in mine:
+            g = gh_map.get(_key(m["url"])) or _by_name.get(m["name"])
+            if g:
+                _hit += 1
+                m["gst"], m["ghttp"], m["gms"] = g.get("status"), g.get("http_status"), g.get("response_ms")
+        print(f"       Actions 视角 {gh_at}：已配对 {_hit}/{len(mine)} 个源")
+    else:
+        print("       未取得 Actions 报告，本次只显示本地视角")
 
 data = {
     "generated": datetime.now(TZ).strftime("%Y-%m-%d %H:%M"),
@@ -118,6 +167,7 @@ data = {
     "items": items,
     "mine": mine,
     "mineAt": mine_at,
+    "ghAt": gh_at,
 }
 blob = json.dumps(data, ensure_ascii=False, separators=(",", ":"))
 n_total = len(items)
@@ -175,10 +225,19 @@ footer{margin-top:28px;color:var(--fg2);font-size:11.5px;line-height:1.8;border-
 .mine-h{display:flex;justify-content:space-between;align-items:baseline;gap:8px;flex-wrap:wrap;
 font-size:13px;font-weight:600;margin-bottom:10px}
 .mine-h em{color:var(--fg2);font-style:normal;font-weight:400;font-size:11.5px}
-.mine-list{display:flex;gap:8px;flex-wrap:wrap}
-.msrc{display:flex;align-items:center;gap:6px;background:var(--panel2);border:1px solid var(--line);
-border-radius:8px;padding:5px 10px;font-size:12px;cursor:default}
-.msrc em{color:var(--fg2);font-style:normal;font-size:11px}
+.mine-sum{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:10px}
+.mtab{background:var(--panel2);border:1px solid var(--line);border-radius:999px;padding:3px 10px;
+font-size:11.5px;color:var(--fg2);cursor:pointer;user-select:none}
+.mtab:hover{border-color:#3d4666}
+.mtab.on{background:#223052;border-color:var(--accent);color:#cfe0ff}
+.mine-list{display:grid;grid-template-columns:repeat(auto-fill,minmax(212px,1fr));gap:8px}
+.msrc{background:var(--panel2);border:1px solid var(--line);border-radius:8px;padding:6px 9px;font-size:12px}
+.msrc .mn{display:flex;align-items:center;gap:6px;justify-content:space-between;margin-bottom:4px}
+.msrc .mn b{font-weight:600;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.msrc .pl{display:flex;justify-content:space-between;gap:6px;font-size:11px;line-height:1.7;color:var(--fg2)}
+.msrc .pl i{font-style:normal;opacity:.8;min-width:44px}
+.msrc.good{border-color:#2c5c3d}
+.msrc.warn{border-color:#6b5a24;background:#221f18}
 .msrc.bad{border-color:#7f2d2d;background:#241a1a}
 </style></head><body><div class="wrap">
 <h1>我的追剧源看板</h1>
@@ -273,21 +332,51 @@ function render(){
 function copyUrl(u,btn){navigator.clipboard.writeText(u).then(()=>{btn.textContent="已复制 ✓";
 setTimeout(()=>btn.textContent="复制地址",1200)})}
 function esc(s){return String(s==null?"":s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]))}
+/* ---- 我的源：本机/NAS 与 GitHub Actions 双视角对照 ---- */
+const VD={both:["双绿","#22c55e"],gh_only:["仅 Actions 绿","#eab308"],
+nas_only:["仅本机绿","#38bdf8"],both_red:["双向失败","#ef4444"],na:["未对照","#64748b"]};
+let mv="";
+function verdict(m){
+ if(!m.gst)return "na";
+ const n=m.st==="reachable",g=m.gst==="reachable";
+ if(n&&g)return "both"; if(g)return "gh_only"; if(n)return "nas_only"; return "both_red";
+}
+function fmt(st,http,ms){
+ if(!st)return "—";
+ const d={reachable:"🟢",restricted:"🟡",unreachable:"🔴"}[st]||"⚪";
+ if(st==="unreachable")return d+" 无响应";
+ return d+" "+http+(ms?" · "+ms+"ms":"");
+}
 function renderMine(){
  const el=document.getElementById("mine");
  if(!D.mine||!D.mine.length){el.style.display="none";return}
- const c={reachable:0,restricted:0,unreachable:0};
- D.mine.forEach(m=>{if(c[m.st]!==undefined)c[m.st]++});
- const col={reachable:"#22c55e",restricted:"#eab308",unreachable:"#ef4444"};
- let h='<div class="mine-h"><span>我的源 · NAS 自测</span><em>共 '+D.mine.length+' 个　🟢'+c.reachable+
-   '　🟡'+c.restricted+'　🔴'+c.unreachable+'　· 探活于 '+(D.mineAt||"—")+'</em></div><div class="mine-list">';
- D.mine.forEach(m=>{
-  const info=m.http?(m.http+(m.ms?" · "+m.ms+"ms":"")):(m.err||"无响应");
-  h+='<div class="msrc'+(m.st==="unreachable"?" bad":"")+'" title="'+esc(m.url)+'&#10;'+esc(m.err||"")+
-     '"><span class="dot" style="background:'+(col[m.st]||"#64748b")+'"></span><span>'+esc(m.name)+
-     '</span><em>'+esc(info)+'</em></div>';
+ const cnt={both:0,gh_only:0,nas_only:0,both_red:0,na:0};
+ D.mine.forEach(m=>cnt[verdict(m)]++);
+ let h='<div class="mine-h"><span>我的源 · 双视角对照</span><em>本机/NAS '+(D.mineAt||"—")+
+   ' · Actions '+(D.ghAt||"未获取")+'　共 '+D.mine.length+' 个</em></div><div class="mine-sum">';
+ ["both","gh_only","nas_only","both_red","na"].forEach(k=>{
+  if(!cnt[k])return;
+  h+='<div class="mtab'+(mv===k?" on":"")+'" data-k="'+k+'">'+VD[k][0]+' '+cnt[k]+'</div>';
+ });
+ if(cnt.gh_only+cnt.nas_only)
+  h+='<div class="mtab'+(mv==="diff"?" on":"")+'" data-k="diff">只看差异 '+(cnt.gh_only+cnt.nas_only)+'</div>';
+ h+='</div><div class="mine-list">';
+ D.mine.filter(m=>{
+  const v=verdict(m);
+  if(!mv)return true;
+  if(mv==="diff")return v==="gh_only"||v==="nas_only";
+  return v===mv;
+ }).forEach(m=>{
+  const v=verdict(m),[vt,vc]=VD[v];
+  const cls=v==="both"?"good":(v==="both_red"?"bad":"warn");
+  h+='<div class="msrc '+cls+'" title="'+esc(m.name)+'&#10;'+esc(m.url)+'&#10;判定：'+vt+
+     (m.err?'&#10;本机错误：'+esc(m.err):'')+'">'+
+   '<div class="mn"><b>'+esc(m.name)+'</b><span class="dot" style="background:'+vc+'" title="'+vt+'"></span></div>'+
+   '<div class="pl"><i>本机/NAS</i><span>'+fmt(m.st,m.http,m.ms)+'</span></div>'+
+   '<div class="pl"><i>Actions</i><span>'+fmt(m.gst,m.ghttp,m.gms)+'</span></div></div>';
  });
  el.innerHTML=h+"</div>";
+ el.querySelectorAll(".mtab").forEach(t=>t.onclick=()=>{mv=(mv===t.dataset.k?"":t.dataset.k);renderMine()});
 }
 document.getElementById("q").oninput=e=>{q=e.target.value.trim().toLowerCase();render()};
 document.getElementById("ver").onchange=e=>{ver=e.target.value;render()};

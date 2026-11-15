@@ -1,12 +1,48 @@
 {
   "version": 1,
-  "generated_at": "2026-11-15T08:34:56.729Z",
+  "generated_at": "2026-11-15T09:05:39.305Z",
   "summary": {
-    "reachable": 8,
+    "reachable": 24,
     "restricted": 0,
     "unreachable": 1
   },
   "results": [
+    {
+      "url": "https://kkso.net",
+      "name": "KK网盘搜",
+      "category": "cloud",
+      "status": "reachable",
+      "http_status": 200,
+      "final_url": "https://kkso.net",
+      "response_ms": 1137,
+      "attempts": 1,
+      "checked_at": "2026-11-15T09:05:12.983Z",
+      "error": null
+    },
+    {
+      "url": "https://pansou.de",
+      "name": "PanSou",
+      "category": "cloud",
+      "status": "reachable",
+      "http_status": 200,
+      "final_url": "https://pansou.de",
+      "response_ms": 1129,
+      "attempts": 1,
+      "checked_at": "2026-11-15T09:05:12.940Z",
+      "error": null
+    },
+    {
+      "url": "https://gugeso.com/",
+      "name": "谷哥搜",
+      "category": "cloud",
+      "status": "reachable",
+      "http_status": 200,
+      "final_url": "https://gugeso.com/",
+      "response_ms": 3041,
+      "attempts": 1,
+      "checked_at": "2026-11-15T09:05:14.918Z",
+      "error": null
+    },
     {
       "url": "https://pan.vma.cc/down.php/f83b92a24d61858666f13c5db938a292.txt",
       "name": "VMA",
@@ -16,8 +52,20 @@
       "final_url": "https://pan.vma.cc/down.php/f83b92a24d61858666f13c5db938a292.txt",
       "response_ms": null,
       "attempts": 2,
-      "checked_at": "2026-11-15T08:34:56.727Z",
-      "error": "URLError: <urlopen error _ssl.c:1015: The handshake operation timed out>"
+      "checked_at": "2026-11-15T09:05:39.304Z",
+      "error": "TimeoutError: The read operation timed out"
+    },
+    {
+      "url": "https://iptv-org.github.io/iptv/countries/cn.m3u",
+      "name": "iptv-org 中国",
+      "category": "iptv",
+      "status": "reachable",
+      "http_status": 200,
+      "final_url": "https://iptv-org.github.io/iptv/countries/cn.m3u",
+      "response_ms": 12422,
+      "attempts": 1,
+      "checked_at": "2026-11-15T09:05:23.903Z",
+      "error": null
     },
     {
       "url": "http://www.饭太硬.cc/tv",
@@ -26,9 +74,69 @@
       "status": "reachable",
       "http_status": 200,
       "final_url": "http://www.xn--sss604efuw.cc/",
-      "response_ms": 1390,
+      "response_ms": 1369,
       "attempts": 1,
-      "checked_at": "2026-11-15T08:34:30.442Z",
+      "checked_at": "2026-11-15T09:05:12.620Z",
+      "error": null
+    },
+    {
+      "url": "https://www.cilixiong.org",
+      "name": "磁力熊",
+      "category": "magnet",
+      "status": "reachable",
+      "http_status": 200,
+      "final_url": "https://www.cilixiong.org",
+      "response_ms": 4245,
+      "attempts": 1,
+      "checked_at": "2026-11-15T09:05:16.258Z",
+      "error": null
+    },
+    {
+      "url": "https://ciligou.net",
+      "name": "磁力狗",
+      "category": "magnet",
+      "status": "reachable",
+      "http_status": 200,
+      "final_url": "https://ciligou.net",
+      "response_ms": 484,
+      "attempts": 1,
+      "checked_at": "2026-11-15T09:05:12.733Z",
+      "error": null
+    },
+    {
+      "url": "https://www.mjf2020.com",
+      "name": "美剧粉",
+      "category": "magnet",
+      "status": "reachable",
+      "http_status": 200,
+      "final_url": "https://www.mjf2020.com",
+      "response_ms": 311,
+      "attempts": 1,
+      "checked_at": "2026-11-15T09:05:12.563Z",
+      "error": null
+    },
+    {
+      "url": "https://subhd.tv",
+      "name": "SubHD",
+      "category": "subtitle",
+      "status": "reachable",
+      "http_status": 200,
+      "final_url": "https://subhd.tv",
+      "response_ms": 851,
+      "attempts": 1,
+      "checked_at": "2026-11-15T09:05:12.580Z",
+      "error": null
+    },
+    {
+      "url": "https://assrt.net",
+      "name": "射手网(伪)",
+      "category": "subtitle",
+      "status": "reachable",
+      "http_status": 200,
+      "final_url": "https://assrt.net",
+      "response_ms": 4887,
+      "attempts": 1,
+      "checked_at": "2026-11-15T09:05:16.409Z",
       "error": null
     },
     {
@@ -38,9 +146,9 @@
       "status": "reachable",
       "http_status": 200,
       "final_url": "https://ys.cxkjg.cn/api/provide/tvbox",
-      "response_ms": 710,
+      "response_ms": 599,
       "attempts": 1,
-      "checked_at": "2026-11-15T08:34:29.753Z",
+      "checked_at": "2026-11-15T09:05:11.845Z",
       "error": null
     },
     {
@@ -50,9 +158,9 @@
       "status": "reachable",
       "http_status": 200,
       "final_url": "http://xn--nsr30bl8nb2kyt7a8vs.top/",
-      "response_ms": 9419,
+      "response_ms": 2284,
       "attempts": 1,
-      "checked_at": "2026-11-15T08:34:38.464Z",
+      "checked_at": "2026-11-15T09:05:13.532Z",
       "error": null
     },
     {
@@ -62,9 +170,21 @@
       "status": "reachable",
       "http_status": 200,
       "final_url": "http://xhztv.top/4k.json",
-      "response_ms": 744,
+      "response_ms": 565,
       "attempts": 1,
-      "checked_at": "2026-11-15T08:34:29.786Z",
+      "checked_at": "2026-11-15T09:05:11.810Z",
+      "error": null
+    },
+    {
+      "url": "http://xhztv.top/xhz",
+      "name": "小盒子单仓",
+      "category": "tvbox",
+      "status": "reachable",
+      "http_status": 200,
+      "final_url": "http://xhztv.top/xhz/",
+      "response_ms": 1005,
+      "attempts": 1,
+      "checked_at": "2026-11-15T09:05:12.251Z",
       "error": null
     },
     {
@@ -74,9 +194,21 @@
       "status": "reachable",
       "http_status": 200,
       "final_url": "http://xhztv.top/dc/",
-      "response_ms": 2328,
+      "response_ms": 1046,
       "attempts": 1,
-      "checked_at": "2026-11-15T08:34:31.371Z",
+      "checked_at": "2026-11-15T09:05:12.291Z",
+      "error": null
+    },
+    {
+      "url": "https://szyyds.cn/tv/x.json",
+      "name": "小马",
+      "category": "tvbox",
+      "status": "reachable",
+      "http_status": 200,
+      "final_url": "https://szyyds.cn/tv/x.json",
+      "response_ms": 232,
+      "attempts": 1,
+      "checked_at": "2026-11-15T09:05:11.480Z",
       "error": null
     },
     {
@@ -86,9 +218,9 @@
       "status": "reachable",
       "http_status": 200,
       "final_url": "http://xmbjm.fh4u.org/dc.txt",
-      "response_ms": 1635,
+      "response_ms": 1002,
       "attempts": 1,
-      "checked_at": "2026-11-15T08:34:30.678Z",
+      "checked_at": "2026-11-15T09:05:12.248Z",
       "error": null
     },
     {
@@ -98,9 +230,45 @@
       "status": "reachable",
       "http_status": 200,
       "final_url": "https://ztha.top/TVBox/GYCK.json",
-      "response_ms": 889,
+      "response_ms": 1310,
       "attempts": 1,
-      "checked_at": "2026-11-15T08:34:29.932Z",
+      "checked_at": "2026-11-15T09:05:12.557Z",
+      "error": null
+    },
+    {
+      "url": "http://www.y456y.com",
+      "name": "摸鱼儿",
+      "category": "tvbox",
+      "status": "reachable",
+      "http_status": 200,
+      "final_url": "http://www.y456y.com",
+      "response_ms": 628,
+      "attempts": 1,
+      "checked_at": "2026-11-15T09:05:11.877Z",
+      "error": null
+    },
+    {
+      "url": "https://6800.kstore.vip/fish.json",
+      "name": "无名",
+      "category": "tvbox",
+      "status": "reachable",
+      "http_status": 200,
+      "final_url": "https://6800.kstore.vip/fish.json",
+      "response_ms": 274,
+      "attempts": 1,
+      "checked_at": "2026-11-15T09:05:11.522Z",
+      "error": null
+    },
+    {
+      "url": "http://new.王二小放牛娃.top",
+      "name": "王二小",
+      "category": "tvbox",
+      "status": "reachable",
+      "http_status": 200,
+      "final_url": "https://www.xn--4kq62z5rby2qupq9ub.top/",
+      "response_ms": 2608,
+      "attempts": 1,
+      "checked_at": "2026-11-15T09:05:13.874Z",
       "error": null
     },
     {
@@ -110,9 +278,33 @@
       "status": "reachable",
       "http_status": 200,
       "final_url": "https://raw.liucn.cc/box/m.json",
-      "response_ms": 13123,
+      "response_ms": 766,
       "attempts": 1,
-      "checked_at": "2026-11-15T08:34:42.168Z",
+      "checked_at": "2026-11-15T09:05:12.012Z",
+      "error": null
+    },
+    {
+      "url": "http://肥猫.net/",
+      "name": "肥猫配置",
+      "category": "tvbox",
+      "status": "reachable",
+      "http_status": 200,
+      "final_url": "http://xn--z7x900a.net/",
+      "response_ms": 1091,
+      "attempts": 1,
+      "checked_at": "2026-11-15T09:05:12.432Z",
+      "error": null
+    },
+    {
+      "url": "http://www.饭太硬.net/tv",
+      "name": "饭太硬配置",
+      "category": "tvbox",
+      "status": "reachable",
+      "http_status": 200,
+      "final_url": "http://www.xn--sss604efuw.net/tv",
+      "response_ms": 400,
+      "attempts": 1,
+      "checked_at": "2026-11-15T09:05:11.728Z",
       "error": null
     }
   ]
