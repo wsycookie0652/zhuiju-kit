@@ -16,8 +16,8 @@
 ├── check_availability.py              # 并发探活 → reports/availability.json
 ├── build_dashboard.py                 # 拉上游数据 → 单文件 HTML 看板
 ├── reports/availability.json          # 探活报告（Actions 每天自动更新）
-└── examples/
-    └── check-availability.yml         # 每日自动探活的工作流模板
+└── .github/workflows/
+    └── check-availability.yml         # 每天 09:00 (北京) 自动跑
 ```
 
 ## 快速开始
@@ -43,11 +43,7 @@ OUT=/tmp/dashboard.html python build_dashboard.py
 
 ## GitHub Actions
 
-`examples/check-availability.yml` 是工作流模板。启用方式：GitHub 网页上新建文件 `.github/workflows/check-availability.yml`，把模板内容粘进去提交即可（也可以用 `git mv` 本地移动后推送）。
-
-> 为什么放在 `examples/` 而不是直接放 `.github/workflows/`：写入工作流文件需要 token 具备 `workflow` 权限，普通 `public_repo` token 会被 GitHub 拒绝。放模板目录，谁 clone 都能自行启用。
-
-跑起来之后每天 01:00 UTC（北京 09:00）执行一次，也支持在 Actions 页面手动触发。
+`.github/workflows/check-availability.yml` 已就绪，每天 01:00 UTC（北京 09:00）跑一次，也支持在 Actions 页面手动触发。
 
 **唯一需要手动做的设置**：仓库 → Settings → Actions → General → Workflow permissions → 选 **Read and write permissions**。不设的话最后一步 `git push` 会 403。
 
