@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "generated_at": "2026-11-27T09:21:25.222Z",
+  "generated_at": "2026-11-28T08:37:13.704Z",
   "summary": {
     "reachable": 25,
     "restricted": 0,
@@ -14,9 +14,9 @@
       "status": "reachable",
       "http_status": 200,
       "final_url": "https://kkso.net",
-      "response_ms": 680,
+      "response_ms": 686,
       "attempts": 1,
-      "checked_at": "2026-11-27T09:21:19.457Z",
+      "checked_at": "2026-11-28T08:37:11.009Z",
       "error": null
     },
     {
@@ -26,9 +26,9 @@
       "status": "reachable",
       "http_status": 200,
       "final_url": "https://pansou.de",
-      "response_ms": 756,
+      "response_ms": 859,
       "attempts": 1,
-      "checked_at": "2026-11-27T09:21:19.528Z",
+      "checked_at": "2026-11-28T08:37:11.121Z",
       "error": null
     },
     {
@@ -38,9 +38,9 @@
       "status": "reachable",
       "http_status": 200,
       "final_url": "https://gugeso.com/",
-      "response_ms": 2649,
+      "response_ms": 2783,
       "attempts": 1,
-      "checked_at": "2026-11-27T09:21:21.526Z",
+      "checked_at": "2026-11-28T08:37:13.111Z",
       "error": null
     },
     {
@@ -50,9 +50,9 @@
       "status": "reachable",
       "http_status": 200,
       "final_url": "https://pan.ezv.cc/down.php/f83b92a24d61858666f13c5db938a292.txt",
-      "response_ms": 1139,
+      "response_ms": 2100,
       "attempts": 1,
-      "checked_at": "2026-11-27T09:21:19.732Z",
+      "checked_at": "2026-11-28T08:37:12.073Z",
       "error": null
     },
     {
@@ -62,9 +62,9 @@
       "status": "reachable",
       "http_status": 200,
       "final_url": "https://iptv-org.github.io/iptv/countries/cn.m3u",
-      "response_ms": 94,
+      "response_ms": 112,
       "attempts": 1,
-      "checked_at": "2026-11-27T09:21:18.772Z",
+      "checked_at": "2026-11-28T08:37:10.261Z",
       "error": null
     },
     {
@@ -74,9 +74,9 @@
       "status": "reachable",
       "http_status": 200,
       "final_url": "http://www.xn--sss604efuw.cc/",
-      "response_ms": 413,
+      "response_ms": 841,
       "attempts": 1,
-      "checked_at": "2026-11-27T09:21:19.060Z",
+      "checked_at": "2026-11-28T08:37:10.837Z",
       "error": null
     },
     {
@@ -86,9 +86,9 @@
       "status": "reachable",
       "http_status": 200,
       "final_url": "https://www.cilixiong.org",
-      "response_ms": 190,
+      "response_ms": 381,
       "attempts": 1,
-      "checked_at": "2026-11-27T09:21:19.190Z",
+      "checked_at": "2026-11-28T08:37:10.769Z",
       "error": null
     },
     {
@@ -98,9 +98,9 @@
       "status": "reachable",
       "http_status": 200,
       "final_url": "https://ciligou.net",
-      "response_ms": 177,
+      "response_ms": 278,
       "attempts": 1,
-      "checked_at": "2026-11-27T09:21:19.237Z",
+      "checked_at": "2026-11-28T08:37:10.736Z",
       "error": null
     },
     {
@@ -110,9 +110,9 @@
       "status": "reachable",
       "http_status": 200,
       "final_url": "https://www.mjf2020.com",
-      "response_ms": 887,
+      "response_ms": 960,
       "attempts": 1,
-      "checked_at": "2026-11-27T09:21:19.947Z",
+      "checked_at": "2026-11-28T08:37:11.697Z",
       "error": null
     },
     {
@@ -122,9 +122,9 @@
       "status": "reachable",
       "http_status": 200,
       "final_url": "https://subhd.tv",
-      "response_ms": 245,
+      "response_ms": 843,
       "attempts": 1,
-      "checked_at": "2026-11-27T09:21:19.000Z",
+      "checked_at": "2026-11-28T08:37:11.084Z",
       "error": null
     },
     {
@@ -134,9 +134,9 @@
       "status": "reachable",
       "http_status": 200,
       "final_url": "https://assrt.net",
-      "response_ms": 1196,
+      "response_ms": 924,
       "attempts": 1,
-      "checked_at": "2026-11-27T09:21:19.950Z",
+      "checked_at": "2026-11-28T08:37:11.115Z",
       "error": null
     },
     {
@@ -146,9 +146,9 @@
       "status": "reachable",
       "http_status": 200,
       "final_url": "https://ys.cxkjg.cn/api/provide/tvbox",
-      "response_ms": 1140,
+      "response_ms": 2428,
       "attempts": 1,
-      "checked_at": "2026-11-27T09:21:19.742Z",
+      "checked_at": "2026-11-28T08:37:12.376Z",
       "error": null
     },
     {
@@ -158,9 +158,9 @@
       "status": "reachable",
       "http_status": 200,
       "final_url": "http://www.xn--nsr30b.cc/",
-      "response_ms": 2507,
+      "response_ms": 2499,
       "attempts": 1,
-      "checked_at": "2026-11-27T09:21:21.112Z",
+      "checked_at": "2026-11-28T08:37:12.461Z",
       "error": null
     },
     {
@@ -170,9 +170,9 @@
       "status": "reachable",
       "http_status": 200,
       "final_url": "http://xhztv.top/4k.json",
-      "response_ms": 87,
+      "response_ms": 203,
       "attempts": 1,
-      "checked_at": "2026-11-27T09:21:18.677Z",
+      "checked_at": "2026-11-28T08:37:10.149Z",
       "error": null
     },
     {
@@ -182,9 +182,9 @@
       "status": "reachable",
       "http_status": 200,
       "final_url": "http://xhztv.top/xhz/",
-      "response_ms": 155,
+      "response_ms": 380,
       "attempts": 1,
-      "checked_at": "2026-11-27T09:21:18.754Z",
+      "checked_at": "2026-11-28T08:37:10.327Z",
       "error": null
     },
     {
@@ -194,9 +194,9 @@
       "status": "reachable",
       "http_status": 200,
       "final_url": "http://xhztv.top/dc/",
-      "response_ms": 158,
+      "response_ms": 294,
       "attempts": 1,
-      "checked_at": "2026-11-27T09:21:18.754Z",
+      "checked_at": "2026-11-28T08:37:10.241Z",
       "error": null
     },
     {
@@ -206,9 +206,9 @@
       "status": "reachable",
       "http_status": 200,
       "final_url": "https://szyyds.cn/tv/x.json",
-      "response_ms": 1227,
+      "response_ms": 3740,
       "attempts": 1,
-      "checked_at": "2026-11-27T09:21:19.832Z",
+      "checked_at": "2026-11-28T08:37:13.703Z",
       "error": null
     },
     {
@@ -218,9 +218,9 @@
       "status": "reachable",
       "http_status": 200,
       "final_url": "http://xmbjm.fh4u.org/dc.txt",
-      "response_ms": 614,
+      "response_ms": 374,
       "attempts": 1,
-      "checked_at": "2026-11-27T09:21:19.217Z",
+      "checked_at": "2026-11-28T08:37:10.323Z",
       "error": null
     },
     {
@@ -230,9 +230,9 @@
       "status": "reachable",
       "http_status": 200,
       "final_url": "https://ztha.top/TVBox/GYCK.json",
-      "response_ms": 1497,
+      "response_ms": 1914,
       "attempts": 1,
-      "checked_at": "2026-11-27T09:21:20.101Z",
+      "checked_at": "2026-11-28T08:37:11.864Z",
       "error": null
     },
     {
@@ -242,9 +242,9 @@
       "status": "reachable",
       "http_status": 200,
       "final_url": "http://www.y456y.com",
-      "response_ms": 986,
+      "response_ms": 1029,
       "attempts": 1,
-      "checked_at": "2026-11-27T09:21:19.578Z",
+      "checked_at": "2026-11-28T08:37:11.001Z",
       "error": null
     },
     {
@@ -254,9 +254,9 @@
       "status": "reachable",
       "http_status": 200,
       "final_url": "https://6800.kstore.vip/fish.json",
-      "response_ms": 271,
+      "response_ms": 494,
       "attempts": 1,
-      "checked_at": "2026-11-27T09:21:18.877Z",
+      "checked_at": "2026-11-28T08:37:10.457Z",
       "error": null
     },
     {
@@ -266,9 +266,9 @@
       "status": "reachable",
       "http_status": 200,
       "final_url": "https://www.xn--4kq62z5rby2qupq9ub.top/",
-      "response_ms": 412,
+      "response_ms": 391,
       "attempts": 1,
-      "checked_at": "2026-11-27T09:21:19.059Z",
+      "checked_at": "2026-11-28T08:37:10.387Z",
       "error": null
     },
     {
@@ -278,9 +278,9 @@
       "status": "reachable",
       "http_status": 200,
       "final_url": "https://raw.liucn.cc/box/m.json",
-      "response_ms": 172,
+      "response_ms": 240,
       "attempts": 1,
-      "checked_at": "2026-11-27T09:21:18.777Z",
+      "checked_at": "2026-11-28T08:37:10.190Z",
       "error": null
     },
     {
@@ -290,9 +290,9 @@
       "status": "reachable",
       "http_status": 200,
       "final_url": "http://xn--z7x900a.net/",
-      "response_ms": 6575,
+      "response_ms": 3494,
       "attempts": 1,
-      "checked_at": "2026-11-27T09:21:25.221Z",
+      "checked_at": "2026-11-28T08:37:13.490Z",
       "error": null
     },
     {
@@ -302,9 +302,9 @@
       "status": "reachable",
       "http_status": 200,
       "final_url": "http://www.xn--sss604efuw.net/",
-      "response_ms": 1211,
+      "response_ms": 907,
       "attempts": 1,
-      "checked_at": "2026-11-27T09:21:19.857Z",
+      "checked_at": "2026-11-28T08:37:10.903Z",
       "error": null
     }
   ]
